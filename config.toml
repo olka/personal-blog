@@ -1,0 +1,27 @@
+baseURL = "http://olka.github.com/"
+[params]
+    sidebartitle = "Alex Kachur"
+    sidebartagline = "Tech Blog"
+    sidebarphoto = "/img/photo.jpg"
+    languageCode = "en-us"
+    
+[[menu.main]]
+    name = "About"
+    url = "/about.html"
+
+[[menu.social]]
+    pre = "<i class='fa fa-linkedin'></i>"
+    url = "https://www.linkedin.com/in/alexkachur"
+    identifier = "linkedin"    
+
+[[menu.social]]
+    pre = "<i class='fa fa-github'></i>"
+    url = "https://github.com/olka"
+    identifier = "github"
+
+nocomment = false
+notoc = false
+totop = true
+banner = "none"
+bannerfill = true
+bannerinline = true
