@@ -2,9 +2,9 @@ baseURL = "https://olka.github.io/personal-blog/"
 publishDir = "docs"
 
 [params]
-    sidebartitle = "Alex Kachur"
+    sidebartitle = "Alex Kachur's"
     sidebartagline = "Tech Blog"
-    sidebarphoto = "./img/photo.jpg"
+    sidebarphoto = "https://raw.githubusercontent.com/olka/personal-blog/master/static/img/photo.jpg"
     languageCode = "en-us"
 
 [[menu.social]]
