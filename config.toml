@@ -1,4 +1,4 @@
-baseURL = "http://olka.github.com/"
+baseURL = "https://olka.github.io/personal-blog/"
 publishDir = "docs"
 
 [params]
