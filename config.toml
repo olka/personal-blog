@@ -4,10 +4,6 @@ baseURL = "http://olka.github.com/"
     sidebartagline = "Tech Blog"
     sidebarphoto = "/img/photo.jpg"
     languageCode = "en-us"
-    
-[[menu.main]]
-    name = "About"
-    url = "/about.html"
 
 [[menu.social]]
     pre = "<i class='fa fa-linkedin'></i>"

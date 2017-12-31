@@ -21,16 +21,14 @@
 
 		{{ if not .Params.notoc }}
 			{{ if .TableOfContents }}
-		    <div id="toc" class="pure-u-1 pure-u-md-1-4">
+		    <div id="toc" class="pure-u-1 pure-u-md-1-3">
 				<small class="toc-label">Contents</small>
 		   	 	{{ .TableOfContents }}
 		    </div>
 		    {{ end }}
 	    {{ end }}
   		<section class="post">
-            <h1 class="post-title">
-              <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-            </h1>
+    
             <h3 class="post-subtitle">
             	{{ .Params.subtitle }}
             </h3>
