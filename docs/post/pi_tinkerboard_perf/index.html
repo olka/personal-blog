@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <title>
+    node.js performance on Raspberry Pi and Tinker Board // 
+  </title>
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="author" content="">
+<meta name="generator" content="Hugo 0.31.1" />
+
+  <meta property="og:title" content="node.js performance on Raspberry Pi and Tinker Board" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:url" content="https://olka.github.io/personal-blog/post/pi_tinkerboard_perf/" />
+
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/base-min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/pure-min.css">
+  
+  
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/grids-responsive-min.css">
+  
+  
+
+  <link rel="stylesheet" href="https://olka.github.io/personal-blog//css/redlounge.css">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href='//fonts.googleapis.com/css?family=Raleway:400,200,100,700,300,500,600,800' rel='stylesheet' type='text/css'>
+  <link href='//fonts.googleapis.com/css?family=Libre+Baskerville:400,700,400italic' rel='stylesheet' type='text/css'>
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="" />
+
+    
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/tomorrow-night-bright.min.css">
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+
+  
+
+  
+
+  
+
+  
+</head>
+
+<body>
+	
+
+	<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+  <div class="header">
+    
+
+	
+	  <img src="/img/photo.jpg" class="sidebarphoto">
+	
+
+    <h1 class="brand-title">Alex Kachur</h1>
+    <h2 class="brand-tagline">Tech Blog</h2>
+
+    <nav class="nav">
+      <ul class="nav-list">
+        <li class="nav-item"><span class="nav-item-separator">//</span><a href="https://olka.github.io/personal-blog/">Home</a></li>
+        
+      </ul>
+    </nav>
+
+    
+    <div class="social-buttons">
+      
+        
+        <a href="https://github.com/olka" target="_blank"><i class='fa fa-github'></i></a>
+        
+      
+        
+        <a href="https://www.linkedin.com/in/alexkachur" target="_blank"><i class='fa fa-linkedin'></i></a>
+        
+      
+      
+    </div>
+    
+
+  </div>
+</div>
+
+	
+	
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+		<a name="top"></a>
+		
+
+		
+			
+		    <div id="toc" class="pure-u-1 pure-u-md-1-3">
+				<small class="toc-label">Contents</small>
+		   	 	<nav id="TableOfContents">
+<ul>
+<li><a href="#raspberry-pi-vs-tinker-board-node-js-performance">Raspberry Pi vs Tinker Board: node.js performance</a>
+<ul>
+<li><a href="#preface">Preface</a></li>
+<li><a href="#comparison">Comparison</a>
+<ul>
+<li><a href="#saturation-points">Saturation points</a>
+<ul>
+<li><a href="#healthcheck-test">Healthcheck test</a></li>
+<li><a href="#calculator-test">Calculator test</a></li>
+<li><a href="#monitoring-info">Monitoring info</a></li>
+<li><a href="#flame-graphs">Flame graphs</a></li>
+</ul></li>
+<li><a href="#conclusion">Conclusion</a></li>
+<li><a href="#p-s-useful-commands">P.S.: Useful commands</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+		    </div>
+		    
+	    
+  		<section class="post">
+    
+            <h3 class="post-subtitle">
+            	
+            </h3>
+            
+            	<span class="post-date">
+                	<span class="post-date-day"><sup>30</sup></span><span class="post-date-separator">/</span><span class="post-date-month">Dec</span> <span class="post-date-year">2017</span>
+            	</span>
+            	
+            
+            	
+            
+
+			
+			
+
+			
+
+			
+
+            
+
+<h1 id="raspberry-pi-vs-tinker-board-node-js-performance">Raspberry Pi vs Tinker Board: node.js performance</h1>
+
+<h2 id="preface">Preface</h2>
+
+<hr />
+
+<p>Recently I&rsquo;ve bought both Raspberry Pi and Tinker Board to experiment with microservices performance, cause in the cloud you never know how busy your host is.
+As an application under test I&rsquo;ve found just perfect match - <a href="https://github.com/cloudacademy/aws-xray-microservices-calc">Dockerised Microservices Calculator</a> by <a href="https://github.com/jeremycook123">Jeremy Cook</a> written on node.js. It&rsquo;s dockerised microservices calculator that has been designed to evaluate simple and complex mathematical expressions with any valid user provided expression using the order of operations (or operator precedence) rules. You should definitely check it out if your&rsquo;re interested in playing with microservices.</p>
+
+<p>Node.js installation process is the same for both platforms(since they&rsquo;re just Debian forks) and as simple as executing two lines in the shell:</p>
+
+<pre><code class="language-bash">curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
+sudo apt-get install -y nodejs
+</code></pre>
+
+<p>Unfortunately node for ARM architecture compiled with frame pointers omission so there are problems with <a href="http://www.brendangregg.com/flamegraphs.html">flame graphs</a> plotting: regular perf output provides no information to <a href="http://www.brendangregg.com">Brendan&rsquo;s</a> scripts and</p>
+
+<pre><code class="language-bash">perf record -F 99 -p {$PID} -g --call-graph dwarf
+</code></pre>
+
+<p>generates huge amount of data (with disk I/O oprations) which drastically decrease performance of Raspberry. In addition those dwarf traces can&rsquo;t be properly handled by <a href="https://github.com/brendangregg/FlameGraph">FlameGraph</a> scripts - everything except kernel calls is just flat so overall efficiency of flame graphs on ARM is somewhat questionable.</p>
+
+<p>But even with those limitations there&rsquo;re some interesting findings worth sharing.</p>
+
+<h2 id="comparison">Comparison</h2>
+
+<hr />
+
+<p>Load tests were performed with <a href="http://gatling.io">Gatling</a> testing tool and overall approach was pretty straightforward:</p>
+
+<ol>
+<li><a href="https://gatling.io/docs/2.3/general/operations/">Tune OS</a></li>
+<li>Start <a href="https://github.com/prometheus/node_exporter">node exporter</a> and configure Prometheus with Grafana</li>
+<li>Execute healthcheck load test</li>
+<li>Check saturation point and monitoring results</li>
+<li>Execute calculator load test which evaluates expression (2*(9+<sup>22</sup>&frasl;<sub>5</sub>)-((9-1)/4)^2)+(3^2+((5*5-1)/2))</li>
+<li>Check saturation point and monitoring results</li>
+<li>Report analysis</li>
+</ol>
+
+<h3 id="saturation-points">Saturation points</h3>
+
+<h4 id="healthcheck-test">Healthcheck test</h4>
+
+<p>Raspberry Pi:
+<img src="./raspberry_rps.png" width="100%"/>
+Tinker Board:
+<img src="./tinker_rps.png" width="100%"/>
+On simple healthcheck test Tinker Board is more than 2x times faster with ~3000 RPS while Raspberry have only ~1350 RPS</p>
+
+<h4 id="calculator-test">Calculator test</h4>
+
+<p>Raspberry Pi:
+<img src="./raspberry_calc_rps.png" width="100%">
+Tinker Board:
+<img src="./tinker_calc_rps.png" width="100%"/>
+For calculator test we can see similar picture: Pi with ~65 RPS vs ~130 RPS of Tinker Board</p>
+
+<h4 id="monitoring-info">Monitoring info</h4>
+
+<p>Raspberry Pi:
+<img src="./rasp_monit.png" width="100%"/>
+Here we have an evidence that it&rsquo;s really hard to get something more than ~6 MB/s as many <a href="https://raspberrypi.stackexchange.com/questions/43330/raspberry-pi-usb-bus-speed">users</a> <a href="https://raspberrypi.stackexchange.com/questions/46076/soc-cpu-and-ethernet-controller-internal-connection-in-raspberry-pi-3">reported</a></p>
+
+<p>Tinker Board:
+<img src="./tinker_monit.png" width="100%"/></p>
+
+<h4 id="flame-graphs">Flame graphs</h4>
+
+<p>As I previously mentioned flame graphs not so usefull for this case but something we can see here:</p>
+
+<p>Raspberry Pi:
+<img src="./rasp_fg.svg" width="100%"/>
+Tinker Board:
+<img src="./tinker_fg.svg" width="100%"/>
+Tinker Board can handle context switches a lot faster than Raspberry Pi but since dwarf adds huge amount of overhead and overall throughput of Tinker Board is higher - this information is not something that we can rely on.</p>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<ol>
+<li>Overall Tinker Board 2x faster than Pi</li>
+<li>Tinker Board can handle twice as more Context switches as Pi can</li>
+<li>Tinker OS poorly optimised for disk IO which obviously slows everything down and drasctically decrease SD card lifetime.</li>
+</ol>
+
+<h3 id="p-s-useful-commands">P.S.: Useful commands</h3>
+
+<p>Stats on system calls and their execution time</p>
+
+<pre><code class="language-bash">strace -p {$PID} -c -w
+</code></pre>
+
+<p>Interrupts monitoring</p>
+
+<pre><code class="language-bash">watch -tdn1 cat /proc/interrupts
+itop
+</code></pre>
+
+<p>Perf profiling without sudo privileges:</p>
+
+<pre><code class="language-bash">sudo sysctl kernel.perf_event_paranoid=0
+sudo sysctl kernel.kptr_restrict=0
+</code></pre>
+
+	
+			
+
+			
+
+			
+				<div class="paging">
+					<span class="paging-label">More Reading</span>
+					
+
+					
+	            </div>
+            
+          </section>
+          
+          	
+          
+        
+      <div class="footer">
+	<hr class="thin" />
+	<div class="pure-menu pure-menu-horizontal pure-menu-open">
+		<ul class="footer-menu">
+		
+		</ul>
+	</div>
+
+	<p>&copy; 2017. All rights reserved.</p>
+</div>
+    </div>
+  </div>
+	
+
+	
+
+  
+</body>
+</html>
