@@ -1,4 +1,6 @@
 baseURL = "http://olka.github.com/"
+publishDir = "docs"
+
 [params]
     sidebartitle = "Alex Kachur"
     sidebartagline = "Tech Blog"
