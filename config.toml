@@ -4,7 +4,7 @@ publishDir = "docs"
 [params]
     sidebartitle = "Alex Kachur"
     sidebartagline = "Tech Blog"
-    sidebarphoto = "/img/photo.jpg"
+    sidebarphoto = "./img/photo.jpg"
     languageCode = "en-us"
 
 [[menu.social]]
