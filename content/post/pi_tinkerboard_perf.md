@@ -1,5 +1,5 @@
 ---
-title: "node.js performance on Raspberry Pi and Tinker Board"
+title: "Raspberry Pi vs Tinker Board: node.js performance"
 date: 2017-12-30T17:43:58+02:00
 draft: false
 ---
