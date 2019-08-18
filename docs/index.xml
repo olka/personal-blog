@@ -5,11 +5,28 @@
     <link>https://olka.github.io/personal-blog/</link>
     <description>Recent content on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sat, 30 Dec 2017 17:43:58 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 18 Aug 2019 17:43:58 +0200</lastBuildDate>
     
 	<atom:link href="https://olka.github.io/personal-blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Performance characteristics of Random, ThreadLocalRandom and SplittableRandom</title>
+      <link>https://olka.github.io/personal-blog/post/java_random_generators_perf/</link>
+      <pubDate>Sun, 18 Aug 2019 17:43:58 +0200</pubDate>
+      
+      <guid>https://olka.github.io/personal-blog/post/java_random_generators_perf/</guid>
+      <description>Performance characteristics of Random, ThreadLocalRandom and SplittableRandom Preface Recently I&amp;rsquo;ve got interesting task related to random data generation and writing this data on disk as fast as possible using Java. Unfortunately performance requirements were really tight: in peak application should support writing at ~3 Gb/s. Which means that it should generate random data at really high pace, encode it to proper charset and finally write to disk. That&amp;rsquo;s pretty much an exposition and motivation behind following measurements and why it was so important to dig in.</description>
+    </item>
+    
+    <item>
+      <title>Performance characteristics of Random, ThreadLocalRandom and SplittableRandom</title>
+      <link>https://olka.github.io/personal-blog/posts/java_random_generators_perf/</link>
+      <pubDate>Sun, 18 Aug 2019 17:43:58 +0200</pubDate>
+      
+      <guid>https://olka.github.io/personal-blog/posts/java_random_generators_perf/</guid>
+      <description>Performance characteristics of Random, ThreadLocalRandom and SplittableRandom Preface Recently I&amp;rsquo;ve got interesting task related to random data generation and writing this data on disk as fast as possible using Java. Unfortunately performance requirements were really tight: in peak application should support writing at ~3 Gb/s. Which means that it should generate random data at really high pace, encode it to proper charset and finally write to disk. That&amp;rsquo;s pretty much an exposition and motivation behind following measurements and why it was so important to dig in.</description>
+    </item>
     
     <item>
       <title>Raspberry Pi vs Tinker Board: node.js performance</title>
@@ -17,6 +34,15 @@
       <pubDate>Sat, 30 Dec 2017 17:43:58 +0200</pubDate>
       
       <guid>https://olka.github.io/personal-blog/post/pi_tinkerboard_perf/</guid>
+      <description>Raspberry Pi vs Tinker Board: node.js performance Preface Recently I&amp;rsquo;ve bought both Raspberry Pi and Tinker Board to experiment with microservices performance, cause in the cloud you never know how busy your host is. As an application under test I&amp;rsquo;ve found just perfect match - Dockerised Microservices Calculator by Jeremy Cook written on node.js. It&amp;rsquo;s dockerised microservices calculator that has been designed to evaluate simple and complex mathematical expressions with any valid user provided expression using the order of operations (or operator precedence) rules.</description>
+    </item>
+    
+    <item>
+      <title>Raspberry Pi vs Tinker Board: node.js performance</title>
+      <link>https://olka.github.io/personal-blog/posts/pi_tinkerboard_perf/</link>
+      <pubDate>Sat, 30 Dec 2017 17:43:58 +0200</pubDate>
+      
+      <guid>https://olka.github.io/personal-blog/posts/pi_tinkerboard_perf/</guid>
       <description>Raspberry Pi vs Tinker Board: node.js performance Preface Recently I&amp;rsquo;ve bought both Raspberry Pi and Tinker Board to experiment with microservices performance, cause in the cloud you never know how busy your host is. As an application under test I&amp;rsquo;ve found just perfect match - Dockerised Microservices Calculator by Jeremy Cook written on node.js. It&amp;rsquo;s dockerised microservices calculator that has been designed to evaluate simple and complex mathematical expressions with any valid user provided expression using the order of operations (or operator precedence) rules.</description>
     </item>
     

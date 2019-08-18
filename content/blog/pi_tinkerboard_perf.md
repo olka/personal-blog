@@ -1,11 +1,12 @@
----
-title: "Raspberry Pi vs Tinker Board: node.js performance"
-date: 2017-12-30T17:43:58+02:00
-draft: false
----
-Raspberry Pi vs Tinker Board: node.js performance
-====================================================
++++
+title = "Raspberry Pi vs Tinker Board: node.js performance"
+date = "2018-12-30"
+draft = false
 
+author = "Alex Kachur"
+categories = ["Performance", "node.js", "Raspberry Pi", "Tinker Board", "gatling"]
+type = "post"
++++
 Preface
 ----------------
 --------------------------------------------
