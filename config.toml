@@ -1,4 +1,4 @@
-baseURL = "https://olka.github.io/personal-blog"
+baseURL = "https://olka.github.io/"
 DefaultContentLanguage  = "en"
 title                   = "Root cause all the things"
 theme                   = "hugo-future-imperfect-slim"
@@ -7,7 +7,6 @@ paginate                = 3
 disqusShortname         = ""
 googleAnalytics         = ""
 pluralizeListTitles     = false
-publishDir = "docs"
 
 [params]
   # Loads CSS and JavaScript files. The variable is an array so that you can load
